@@ -18,10 +18,13 @@ func printGreeting() {
 	clearScreen()
 	fmt.Println(asciiTitle)
 	var additionalPrompt string
+	plural := "books"
 	if len(library) == 0 {
 		additionalPrompt = " -- This is likely the first time you're running this program"
+	} else if len(library) == 1 {
+		plural = "book"
 	}
-	fmt.Printf("Read %v books from file %v", len(library), additionalPrompt)
+	fmt.Printf("Loaded %v %v from file %v", len(library), plural, additionalPrompt)
 	time.Sleep(3 * time.Second)
 }
 func printMenu() {
