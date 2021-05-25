@@ -39,5 +39,6 @@ var search = option{
 
 var exit = option{
 	description: "Save and exit",
-	function:    saveAndExit,
+	function:    exitProgram,
+	// function:    saveAndExit,
 }
