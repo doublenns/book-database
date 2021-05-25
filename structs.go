@@ -1,10 +1,10 @@
 package main
 
 type book struct {
-	id          int
-	title       string
-	author      string
-	description string
+	Id          int
+	Title       string
+	Author      string
+	Description string
 }
 
 type menuOption struct {

@@ -28,17 +28,17 @@ func addBook() {
 	description := getInput()
 
 	newBook := book{
-		id:          (len(library) + 1),
-		title:       title,
-		author:      author,
-		description: description,
+		Id:          (len(library) + 1),
+		Title:       title,
+		Author:      author,
+		Description: description,
 	}
 
 	library = append(library, newBook)
 
 	saveToFile()
-	fmt.Printf("Book [%v] Saved\n", newBook[id])
-	time.Sleep(2 * time.Second)
+	fmt.Printf("Book [%v] Saved\n", newBook.Id)
+	time.Sleep(5 * time.Second)
 }
 
 func editBook() {

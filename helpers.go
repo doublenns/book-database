@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"time"
 
@@ -15,12 +16,14 @@ func clearScreen() {
 }
 
 func readLibraryFromFile() {
-	byteContacts, err := os.ReadFile("library.json")
-	if os.IsNotExist(err) {
-		return
-	} else if err == nil {
-		err = json.Unmarshal(byteContacts, &library)
-		return
+	byteLibrary, readErr := os.ReadFile("library.json")
+	if os.IsNotExist(readErr) {
+		return // The file not yet existing isn't an issue
+	} else if readErr == nil {
+		parseErr = json.Unmarshal(byteLibrary, &library)
+		if parseErr == nil {
+			return
+		}
 	}
 
 	// If error reading file or if unable to parse contents of the file
@@ -29,8 +32,8 @@ func readLibraryFromFile() {
 }
 
 func saveToFile() {
-	file, _ := json.MarshalIndent(library, "", " ")
-	err := os.WriteFile("library.json", file, 0666)
+	res, _ := json.MarshalIndent(library, "", " ")
+	err := ioutil.WriteFile("library.json", res, 0644)
 	if err != nil {
 		fmt.Println("Error:", err)
 		os.Exit(1)
