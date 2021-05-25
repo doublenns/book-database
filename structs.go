@@ -7,37 +7,37 @@ type book struct {
 	description string
 }
 
-type option struct {
+type menuOption struct {
 	description string
 	function    func()
 }
 
-var view = option{
+var view = menuOption{
 	description: "View all books",
 	function:    viewBooks,
 }
 
-var add = option{
+var add = menuOption{
 	description: "Add a book",
 	function:    addBook,
 }
 
-var edit = option{
+var edit = menuOption{
 	description: "Edit a book",
 	function:    editBook,
 }
 
-var del = option{
+var del = menuOption{
 	description: "Delete a book",
 	function:    deleteBook,
 }
 
-var search = option{
+var search = menuOption{
 	description: "Search for a book",
 	function:    searchBook,
 }
 
-var exit = option{
+var exit = menuOption{
 	description: "Save and exit",
 	function:    exitProgram,
 	// function:    saveAndExit,

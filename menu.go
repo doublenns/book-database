@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-var menuItems = map[int]option{
+var menuItems = map[int]menuOption{
 	1: view,
 	2: add,
 	3: edit,
