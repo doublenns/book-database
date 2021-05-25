@@ -16,12 +16,12 @@ func clearScreen() {
 }
 
 func readLibraryFromFile() {
-	byteLibrary, readErr := os.ReadFile("library.json")
-	if os.IsNotExist(readErr) {
+	byteLibrary, err := os.ReadFile("library.json")
+	if os.IsNotExist(err) {
 		return // The file not yet existing isn't an issue
-	} else if readErr == nil {
-		parseErr = json.Unmarshal(byteLibrary, &library)
-		if parseErr == nil {
+	} else if err == nil {
+		err = json.Unmarshal(byteLibrary, &library)
+		if err == nil {
 			return
 		}
 	}
