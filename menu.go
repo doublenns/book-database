@@ -9,9 +9,8 @@ var menuItems = map[int]menuOption{
 	1: view,
 	2: add,
 	3: edit,
-	4: del,
-	5: search,
-	6: exit,
+	4: search,
+	5: exit,
 }
 
 func printGreeting() {

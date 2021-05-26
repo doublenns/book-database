@@ -31,21 +31,24 @@ func viewBooks() {
 		userSelection, err := validateBookSelection()
 
 		if err == nil {
-			if userSelection == 500 {
+			if userSelection == -500 {
 				return
 			} else {
 				bookIndex := userSelection - 1
-				fmt.Println()
-				fmt.Printf("\tID: %d \n", library[bookIndex].Id)
-				fmt.Printf("\tTitle: %v \n", library[bookIndex].Title)
-				fmt.Printf("\tAuthor: %v \n", library[bookIndex].Author)
-				fmt.Printf("\tDescription: %v \n", library[bookIndex].Description)
+				printBookSelection(library, bookIndex)
 			}
 		} else {
 			fmt.Println(err)
 		}
 	}
+}
 
+func printBookSelection(bdb bookDatabase, i int) {
+	fmt.Println()
+	fmt.Printf("\tID: %d \n", library[i].Id)
+	fmt.Printf("\tTitle: %v \n", library[i].Title)
+	fmt.Printf("\tAuthor: %v \n", library[i].Author)
+	fmt.Printf("\tDescription: %v \n", library[i].Description)
 }
 
 func (bdb *bookDatabase) addBook() {
@@ -74,7 +77,7 @@ func (bdb *bookDatabase) addBook() {
 }
 
 func (bdb *bookDatabase) editBook() {
-	library.printAllBooks()
+	(*bdb).printAllBooks()
 
 	for {
 		fmt.Println("Enter the book ID of the book you want to edit; to return press <Enter>")
@@ -83,7 +86,7 @@ func (bdb *bookDatabase) editBook() {
 		userSelection, err := validateBookSelection()
 
 		if err == nil {
-			if userSelection == 500 {
+			if userSelection == -500 {
 				return
 			} else {
 				bookIndex := userSelection - 1
@@ -114,10 +117,6 @@ func (bdb *bookDatabase) editBook() {
 			fmt.Println(err)
 		}
 	}
-}
-
-func deleteBook() {
-
 }
 
 func searchBook() {

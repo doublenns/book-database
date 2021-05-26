@@ -33,7 +33,7 @@ func validateBookSelection() (int, error) {
 
 	rawInput := getInput()
 	if rawInput == "" {
-		return 500, nil
+		return -500, nil
 	}
 	input, err := strconv.Atoi(rawInput)
 	if err == nil {

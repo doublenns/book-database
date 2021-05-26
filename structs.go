@@ -29,11 +29,6 @@ var edit = menuOption{
 	function:    library.editBook,
 }
 
-var del = menuOption{
-	description: "Delete a book",
-	function:    deleteBook,
-}
-
 var search = menuOption{
 	description: "Search for a book",
 	function:    searchBook,
