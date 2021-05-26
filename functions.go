@@ -78,6 +78,7 @@ func (bdb *bookDatabase) addBook() {
 
 func (bdb *bookDatabase) editBook() {
 	(*bdb).printAllBooks()
+	fmt.Println()
 
 	for {
 		fmt.Println("Enter the book ID of the book you want to edit; to return press <Enter>")
@@ -93,11 +94,11 @@ func (bdb *bookDatabase) editBook() {
 				fmt.Println()
 				fmt.Println("Input the following information. To leave a field unchanged, hit <Enter>")
 				fmt.Println()
-				fmt.Printf("Title: [%v]: ", (*bdb)[bookIndex].Title)
+				fmt.Printf("\tTitle: [%v]: ", (*bdb)[bookIndex].Title)
 				newTitle := getInput()
-				fmt.Printf("Author: [%v]: ", (*bdb)[bookIndex].Author)
+				fmt.Printf("\tAuthor: [%v]: ", (*bdb)[bookIndex].Author)
 				newAuthor := getInput()
-				fmt.Printf("Description: [%v]: ", (*bdb)[bookIndex].Description)
+				fmt.Printf("\tDescription: [%v]: ", (*bdb)[bookIndex].Description)
 				newDescription := getInput()
 
 				if newTitle != "" {
@@ -125,5 +126,7 @@ func searchBook() {
 
 func saveAndExit() {
 	saveToFile()
+	fmt.Println("Library saved.")
+	fmt.Println()
 	exitProgram()
 }

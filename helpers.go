@@ -27,6 +27,7 @@ func readLibraryFromFile() {
 	}
 
 	// If error reading file or if unable to parse contents of the file
+	fmt.Println("Error when trying to read from file library.json:")
 	fmt.Println("Error:", err)
 	os.Exit(1)
 }
@@ -35,6 +36,7 @@ func saveToFile() {
 	res, _ := json.MarshalIndent(library, "", " ")
 	err := ioutil.WriteFile("library.json", res, 0644)
 	if err != nil {
+		fmt.Println("Error when trying to save to file library.json:")
 		fmt.Println("Error:", err)
 		os.Exit(1)
 	}
@@ -44,5 +46,4 @@ func exitProgram() {
 	fmt.Println("Quitting Go Library...")
 	time.Sleep(2 * time.Second)
 	quit = true
-	os.Exit(0)
 }

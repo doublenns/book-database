@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 )
 
 var asciiTitle string = `
@@ -31,4 +32,6 @@ func main() {
 			runSelection(selection)
 		}
 	}
+
+	os.Exit(0)
 }
