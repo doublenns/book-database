@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"strings"
 	"time"
+
+	"github.com/ttacon/chalk"
 )
 
 func runSelection(o menuOption) {
@@ -12,12 +14,41 @@ func runSelection(o menuOption) {
 	fmt.Println()
 	o.function()
 }
+func (bdb *bookDatabase) printAllBooks() {
+	for _, b := range *bdb {
+		fmt.Printf("[%v] %v \n", b.Id, b.Title)
+	}
+}
 
 func viewBooks() {
+	library.printAllBooks()
+
+	for {
+		fmt.Println()
+		fmt.Println("To view", chalk.Underline.TextStyle("details"), "enter the book ID, to return press <Enter>")
+		fmt.Println()
+		fmt.Print("Book ID: ")
+		userSelection, err := validateBookSelection()
+
+		if err == nil {
+			if userSelection == 500 {
+				return
+			} else {
+				bookIndex := userSelection - 1
+				fmt.Println()
+				fmt.Printf("\tID: %d \n", library[bookIndex].Id)
+				fmt.Printf("\tTitle: %v \n", library[bookIndex].Title)
+				fmt.Printf("\tAuthor: %v \n", library[bookIndex].Author)
+				fmt.Printf("\tDescription: %v \n", library[bookIndex].Description)
+			}
+		} else {
+			fmt.Println(err)
+		}
+	}
 
 }
 
-func addBook() {
+func (bdb *bookDatabase) addBook() {
 	fmt.Println("Please enter the following information:")
 	fmt.Println()
 	fmt.Print("Title: ")
@@ -28,21 +59,61 @@ func addBook() {
 	description := getInput()
 
 	newBook := book{
-		Id:          (len(library) + 1),
+		Id:          (len(*bdb) + 1),
 		Title:       title,
 		Author:      author,
 		Description: description,
 	}
 
-	library = append(library, newBook)
+	(*bdb) = append((*bdb), newBook)
 
 	saveToFile()
+	fmt.Println()
 	fmt.Printf("Book [%v] Saved\n", newBook.Id)
-	time.Sleep(5 * time.Second)
+	time.Sleep(3 * time.Second)
 }
 
-func editBook() {
+func (bdb *bookDatabase) editBook() {
+	library.printAllBooks()
 
+	for {
+		fmt.Println("Enter the book ID of the book you want to edit; to return press <Enter>")
+		fmt.Println()
+		fmt.Print("Book ID: ")
+		userSelection, err := validateBookSelection()
+
+		if err == nil {
+			if userSelection == 500 {
+				return
+			} else {
+				bookIndex := userSelection - 1
+				fmt.Println()
+				fmt.Println("Input the following information. To leave a field unchanged, hit <Enter>")
+				fmt.Println()
+				fmt.Printf("Title: [%v]: ", (*bdb)[bookIndex].Title)
+				newTitle := getInput()
+				fmt.Printf("Author: [%v]: ", (*bdb)[bookIndex].Author)
+				newAuthor := getInput()
+				fmt.Printf("Description: [%v]: ", (*bdb)[bookIndex].Description)
+				newDescription := getInput()
+
+				if newTitle != "" {
+					(*bdb)[bookIndex].Title = newTitle
+				}
+				if newAuthor != "" {
+					(*bdb)[bookIndex].Author = newAuthor
+				}
+				if newDescription != "" {
+					(*bdb)[bookIndex].Description = newDescription
+				}
+
+				fmt.Println()
+				fmt.Println("Book saved")
+			}
+		} else {
+			fmt.Println(err)
+		}
+	}
 }
 
 func deleteBook() {
@@ -54,5 +125,6 @@ func searchBook() {
 }
 
 func saveAndExit() {
-
+	saveToFile()
+	exitProgram()
 }

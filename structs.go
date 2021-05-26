@@ -26,7 +26,7 @@ var add = menuOption{
 
 var edit = menuOption{
 	description: "Edit a book",
-	function:    editBook,
+	function:    library.editBook,
 }
 
 var del = menuOption{
