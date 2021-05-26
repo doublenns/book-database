@@ -113,6 +113,7 @@ func (bdb *bookDatabase) editBook() {
 
 				fmt.Println()
 				fmt.Println("Book saved")
+				fmt.Println()
 			}
 		} else {
 			fmt.Println(err)
@@ -121,7 +122,64 @@ func (bdb *bookDatabase) editBook() {
 }
 
 func searchBook() {
+	var matches bookDatabase
+	fmt.Println("Type in a keyword to search for")
+	fmt.Println()
+	fmt.Print("\tSearch: ")
+	searchString := getInput()
+	searchString = strings.ToLower(searchString)
 
+	ch := make(chan book)
+
+	for _, book := range library {
+		go determineMatch(book, searchString, &matches, ch)
+	}
+
+	for i := 1; i <= len(library); i++ {
+		<-ch
+	}
+
+	fmt.Println()
+	if len(matches) > 0 {
+		fmt.Println("The following book(s) matched your query. Enter the book ID to see more details, or <Enter> to return.")
+		fmt.Println()
+		for _, book := range matches {
+			fmt.Printf("\t[%d] %v\n", book.Id, book.Title)
+		}
+		for {
+			fmt.Println()
+			fmt.Print("Book ID: ")
+			userSelection, err := validateBookSelection()
+			if err == nil {
+				if userSelection == -500 {
+					return
+				} else {
+					bookIndex := userSelection - 1
+					printBookSelection(library, bookIndex)
+				}
+			} else {
+				fmt.Println(err)
+			}
+		}
+	} else {
+		fmt.Println("No books matched your search query. Returning to main menu...")
+		time.Sleep(5 * time.Second)
+	}
+}
+
+func determineMatch(b book, s string, m *bookDatabase, c chan book) {
+	match := false
+	if strings.Contains(strings.ToLower(b.Title), s) {
+		match = true
+	} else if strings.Contains(strings.ToLower(b.Author), s) {
+		match = true
+	} else if strings.Contains(strings.ToLower(b.Description), s) {
+		match = true
+	}
+	if match {
+		*m = append(*m, b)
+	}
+	c <- b
 }
 
 func saveAndExit() {
