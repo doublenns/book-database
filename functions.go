@@ -16,7 +16,7 @@ func runSelection(o menuOption) {
 }
 func (bdb *bookDatabase) printAllBooks() {
 	for _, b := range *bdb {
-		fmt.Printf("[%v] %v \n", b.Id, b.Title)
+		fmt.Printf("\t[%v] %v \n", b.Id, b.Title)
 	}
 }
 

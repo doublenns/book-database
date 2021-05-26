@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 	"time"
 )
 
@@ -23,12 +24,13 @@ func printGreeting() {
 	} else if len(library) == 1 {
 		plural = "book"
 	}
-	fmt.Printf("Loaded %v %v from file %v", len(library), plural, additionalPrompt)
+	fmt.Printf("Loaded %v %v into the library %v", len(library), plural, additionalPrompt)
 	time.Sleep(3 * time.Second)
 }
 func printMenu() {
-	for i := 1; i < 7; i++ {
-		fmt.Printf("%d) %s\n", i, menuItems[i].description)
+	fmt.Println(strings.Repeat("=", 4), "Book Manager", strings.Repeat("=", 4))
+	for i := 1; i < (len(menuItems) + 1); i++ {
+		fmt.Printf("\t%d) %s\n", i, menuItems[i].description)
 	}
-	fmt.Print("\nChoose [1-6]: ")
+	fmt.Printf("\nChoose [1-%d]: ", len(menuItems))
 }
