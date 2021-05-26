@@ -11,7 +11,7 @@ __
                            / 
 `
 
-var library []book
+var library bookDatabase
 var quit bool = false
 
 func main() {

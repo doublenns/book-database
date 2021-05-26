@@ -7,6 +7,8 @@ type book struct {
 	Description string
 }
 
+type bookDatabase []book
+
 type menuOption struct {
 	description string
 	function    func()
@@ -19,7 +21,7 @@ var view = menuOption{
 
 var add = menuOption{
 	description: "Add a book",
-	function:    addBook,
+	function:    library.addBook,
 }
 
 var edit = menuOption{
@@ -39,6 +41,5 @@ var search = menuOption{
 
 var exit = menuOption{
 	description: "Save and exit",
-	function:    exitProgram,
-	// function:    saveAndExit,
+	function:    saveAndExit,
 }
