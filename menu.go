@@ -30,8 +30,8 @@ func printGreeting() {
 func printMenu() {
 	fmt.Println(strings.Repeat("=", 4), "Book Manager", strings.Repeat("=", 4))
 	fmt.Println()
-	for i := 1; i < (len(menuItems) + 1); i++ {
-		fmt.Printf("\t%d) %s\n", i, menuItems[i].description)
+	for key, _ := range menuItems {
+		fmt.Printf("\t%d) %s\n", key, menuItems[key].description)
 	}
 	fmt.Printf("\nChoose [1-%d]: ", len(menuItems))
 }
