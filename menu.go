@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sort"
 	"strings"
 	"time"
 )
@@ -30,7 +31,12 @@ func printGreeting() {
 func printMenu() {
 	fmt.Println(strings.Repeat("=", 4), "Book Manager", strings.Repeat("=", 4))
 	fmt.Println()
+	var options []int
 	for key := range menuItems {
+		options = append(options, key)
+	}
+	sort.Ints(options)
+	for _, key := range options {
 		fmt.Printf("\t%d) %s\n", key, menuItems[key].description)
 	}
 	fmt.Printf("\nChoose [1-%d]: ", len(menuItems))
